@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Webpage</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #0a0a23;
+            color: white;
+            overflow-x: hidden;
+        }
+
+    
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #0a0a23;
+        }
+
+        header .logo {
+            font-size: 2.0rem;
+            font-weight: bold;
+        }
+
+        header nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #007bff;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cta-buttons a {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .cta-buttons .signup {
+            background: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .cta-buttons .dashboard {
+            background: white;
+            color: #007bff;
+            border: 2px solid #007bff;
+        }
+
+        .cta-buttons a:hover {
+            opacity: 0.9;
+        }
+
+    
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: url('hero-background.jpg') no-repeat center center/cover;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .hero .cta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .hero .cta a {
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: #007bff;
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .hero .cta a:hover {
+            background: #0056b3;
+        }
+
+    
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 50px 20px;
+            background-color: #141433;
+        }
+
+        .feature-card {
+            background: #1d1d41;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+    
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #0a0a23;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Empowering EVs</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About Us</a>
+            <a href="Contact.html">Help</a>
+        </nav>
+        <div class="cta-buttons">
+            <a href="signup.html" class="signup">Sign Up</a>
+            <a href="#" class="dashboard">Dashboard</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Built for EVs ➔ Empowering Battery Health Monitoring.</h1>
+        <p>Monitor your EV's voltage, current, and state of health with precision and ease</p>
+        <div class="cta">
+            <a href="learnmore.html">Learn More</a>
+            <a href="upload.html">Get Started</a>
+        </div>
+    </section>
+    <section class="features">
+        <div class="feature-card">
+            <h3>Accurate Monitoring</h3>
+            <p>Get real-time data on voltage and current for optimized battery performance.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Easy-to-Use Interface</h3>
+            <p>Access all vital stats with a user-friendly dashboard designed for EV owners.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Health Insights</h3>
+            <p>Understand the state of health of your EV battery at a glance.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Custom Alerts</h3>
+            <p>Set thresholds and get notified when your battery needs attention.</p>
+        </div>
+    </section>
+    <footer>
+        &copy; Empowering EVs. All rights reserved. | <a href="#">Privacy Policy</a>
+    </footer>
+</body>
+</html>
+
