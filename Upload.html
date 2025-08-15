@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload CSV - Client-Side</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://png.pngtree.com/background/20230526/original/pngtree-green-glows-through-several-batteries-in-a-dark-background-picture-image_2748551.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #007bff;
+        }
+
+        h1 {
+            margin-top: 80px;
+            font-size: 2.5rem;
+            animation: fadeIn 2s ease-in;
+            font-weight: bolder;
+            color: #ffffff;
+        }
+
+        .animated-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: rgb(255, 255, 255);
+            font-weight: bold;
+            animation: textSlideIn 3s ease-in-out infinite alternate;
+        }
+
+        .upload-container {
+            text-align: center;
+            padding: 40px;
+            background-color: rgba(20, 20, 51, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            animation: slideIn 1s ease-in-out;
+        }
+
+        .upload-container input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #0056b3;
+        }
+
+        #results {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(26, 26, 64, 0.9);
+            border-radius: 10px;
+            max-width: 800px;
+            overflow-x: auto;
+            animation: fadeIn 2s ease-in;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #444;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(0, 123, 255, 0.9);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+            }
+        }
+
+        @keyframes textSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        h1{
+            font-size: 80px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="mini.html">Home</a>
+        <a href="Contact.html">Contact Us</a>
+    </nav>
+
+    <h1>Upload CSV and Process Data</h1>
+    <p class="animated-text"></p>
+    <div class="upload-container">
+        <label for="file-upload" class="custom-file-upload">
+            Choose File
+        </label>
+        <input id="file-upload" type="file" accept=".csv">
+        <div id="results"></div>
+    </div>
+    <script>
+    
+function parseCSV(content) {
+    const rows = content.split('\n').map(row => row.split(','));
+    return rows;
+}
+
+
+function calculateBatteryData(data) {
+    const processedData = [];
+    let cumulativeDischarge = 0;
+
+    for (let i = 1; i < data.length; i++) {
+        const row = data[i];
+        const VDC = parseFloat(row[1]); 
+        const Isp = parseFloat(row[2]); 
+
+        if (!isNaN(VDC) && !isNaN(Isp)) {
+            cumulativeDischarge += Math.abs(VDC * Isp) * 0.000017 * 100 / 91;
+            processedData.push({ time: row[0], VDC, Isp, discharge: cumulativeDischarge });
+        }
+    }
+
+    const batteryCapacity = cumulativeDischarge.toFixed(2);
+    let SOH = ((batteryCapacity * 100) / 57).toFixed(2);
+
+    SOH = Math.min(92, Math.max(5, SOH));
+
+    const RUL = (SOH * 13.1).toFixed(2); 
+
+    return { processedData, batteryCapacity, SOH, RUL };
+}
+
+function displayResults(data, batteryCapacity, SOH, RUL) {
+    const resultsContainer = document.getElementById('results');
+    resultsContainer.innerHTML = `
+        <p><strong>Battery Capacity:</strong> ${batteryCapacity} kWh</p>
+        <p><strong>State of Health (SOH):</strong> ${SOH}%</p>
+        <p><strong>Remaining Useful Life (RUL):</strong> ${RUL} minutes</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>VDC</th>
+                    <th>Isp</th>
+                    <th>Cumulative Discharge</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${data.map(row => `
+                    <tr>
+                        <td>${row.time}</td>
+                        <td>${row.VDC}</td>
+                        <td>${row.Isp}</td>
+                        <td>${row.discharge.toFixed(2)}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+
+document.getElementById('file-upload').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const content = e.target.result;
+            const csvData = parseCSV(content);
+
+            
+            const { processedData, batteryCapacity, SOH, RUL } = calculateBatteryData(csvData);
+            displayResults(processedData, batteryCapacity, SOH, RUL);
+        };
+        reader.readAsText(file);
+    }
+});
+
+    </script>
+    
+</body>
+</html>
