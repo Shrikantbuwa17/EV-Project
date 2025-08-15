@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #0a1128, #112d4e);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #64ffda;
+            text-shadow: 0 0 10px #64ffda, 0 0 20px #64ffda;
+        }
+
+        .signup-container {
+            background: linear-gradient(145deg, #112d4e, #394867);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5), 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        .signup-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: #dfe9f3;
+            font-size: 1em;
+        }
+
+        .signup-container input:focus {
+            outline: none;
+            border: 2px solid #64ffda;
+            box-shadow: 0 0 10px #64ffda;
+        }
+
+        .signup-container button {
+            background-color: #64ffda;
+            color: #0a1128;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .signup-container button:hover {
+            background-color: #52e3c2;
+            box-shadow: 0 0 15px #64ffda;
+        }
+
+        .signup-container a {
+            color: #64ffda;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .signup-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Empowering EVs</h1>
+    <div class="signup-container">
+        <form action="#" method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirm-password" placeholder="Confirm Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="#">Login here</a></p>
+    </div>
+</body>
+</html>
